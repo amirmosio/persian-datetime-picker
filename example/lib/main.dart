@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 final ThemeData androidTheme = new ThemeData(
-  fontFamily: 'Dana',
+  fontFamily: 'SG-Main',
 );
 
 void main() => runApp(new MyApp());

@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
 
 import './pdate_utils.dart';
+import 'my_flutter_app_icons.dart';
 import 'pdate_picker_common.dart';
 import 'pdate_utils.dart' as utils;
 
@@ -353,14 +354,14 @@ class _MonthPickerState extends State<_MonthPicker> {
 
   /// True if the earliest allowable year is displayed.
   bool get _isDisplayingFirstYear {
-    return !_currentMonthYear!.isAfter(
+    return !Jalali(_currentMonthYear!.year).isAfter(
       Jalali(widget.firstDate.year),
     );
   }
 
   /// True if the latest allowable year is displayed.
   bool get _isDisplayingLastYear {
-    return !_currentMonthYear!.isBefore(
+    return !Jalali(_currentMonthYear!.year).isBefore(
       Jalali(widget.lastDate.year),
     );
   }
@@ -401,31 +402,38 @@ class _MonthPickerState extends State<_MonthPicker> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  icon: Image.asset(
-                    "assets/images/double_chevron_left.png",
-                    color: Colors.grey,
-                    width: 24,
-                    height: 24,
+                  icon: const Icon(
+                    MyFlutterApp.Double_Chevron_Right,
+                    size: 18,
                   ),
                   color: controlColor,
                   tooltip: _isDisplayingFirstYear ? null : previousTooltipText,
                   onPressed:
-                  _isDisplayingFirstYear ? null : _handlePreviousYear,
+                      _isDisplayingFirstYear ? null : _handlePreviousYear,
                 ),
                 IconButton(
-                  icon: const Icon(Icons.chevron_left),
+                  icon: const Icon(
+                    MyFlutterApp.Chevron_Right,
+                    size: 18,
+                  ),
                   color: controlColor,
                   tooltip: _isDisplayingFirstMonth ? null : previousTooltipText,
                   onPressed:
                       _isDisplayingFirstMonth ? null : _handlePreviousMonth,
                 ),
-                Text(
-                  (_currentMonthYear?.formatter.mN.toString() ?? "") +
-                      "  " +
-                      (_currentMonthYear?.formatter.y.toString() ?? ""),
+                Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: Text(
+                    (_currentMonthYear?.formatter.mN.toString() ?? "") +
+                        "  " +
+                        (_currentMonthYear?.formatter.y.toString() ?? ""),
+                  ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.chevron_right),
+                  icon: const Icon(
+                    MyFlutterApp.Chevron_Left,
+                    size: 18,
+                  ),
                   color: controlColor,
                   tooltip: _isDisplayingLastMonth ? null : nextTooltipText,
                   onPressed: _isDisplayingLastMonth ? null : _handleNextMonth,
@@ -433,7 +441,10 @@ class _MonthPickerState extends State<_MonthPicker> {
                 IconButton(
                   icon: Row(
                     children: [
-                      const Icon(Icons.chevron_right),
+                      const Icon(
+                        MyFlutterApp.Double_Chevron_Left,
+                        size: 18,
+                      ),
                     ],
                   ),
                   color: controlColor,
