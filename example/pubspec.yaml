@@ -5,7 +5,7 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -20,14 +20,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  
-
- 
-  assets:
-    - assets/images/
-
-  fonts:
-    - family: Dana
-      fonts:
-        - asset: assets/fonts/Dana.ttf
-          weight: 200
