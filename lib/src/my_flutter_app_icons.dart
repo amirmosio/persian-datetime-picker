@@ -18,7 +18,7 @@ import 'package:flutter/widgets.dart';
 class MyFlutterApp {
   MyFlutterApp._();
 
-  static const _kFontFam = 'Icons';
+  static const _kFontFam = 'MyIcons';
   static const String? _kFontPkg = null;
 
   static const IconData Double_Chevron_Right =

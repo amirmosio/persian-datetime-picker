@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
-final ThemeData androidTheme = new ThemeData(
-  fontFamily: 'SG-Main',
-);
-
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -15,7 +11,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Flutter Demo',
-      theme: androidTheme,
       home: new MyHomePage(title: 'دیت تایم پیکر فارسی'),
     );
   }

@@ -18,15 +18,6 @@ dev_dependencies:
 
 flutter:
   fonts:
-    - family: Icons
+    - family: MyIcons
       fonts:
         - asset: assets/fonts/Icons.ttf
-    - family: SG-Main
-      fonts:
-        - asset: assets/fonts/sg_kara_light.ttf
-          weight: 300
-        - asset: assets/fonts/sg_kara_regular.ttf
-        - asset: assets/fonts/sg_kara_semi_bold.ttf
-          weight: 600
-
-

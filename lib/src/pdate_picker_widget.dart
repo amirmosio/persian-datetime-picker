@@ -109,8 +109,8 @@ class DatePickerWidget extends StatefulWidget {
   }
 
   /// button tap handle
-  final Function(Jalali?, PageController)? onPrimaryTap;
-  final Function(Jalali?, PageController)? onSecondaryTap;
+  final void Function(Jalali?, PageController)? onPrimaryTap;
+  final void Function(Jalali?, PageController)? onSecondaryTap;
 
   /// Decides if it has to show header widget or not. Default True
   final bool showHeaderWidget;

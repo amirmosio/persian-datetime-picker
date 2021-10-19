@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:math' as math;
-
+import 'package:persian_datetime_picker/src/string_extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -382,10 +382,6 @@ class _MonthPickerState extends State<_MonthPicker> {
 
   @override
   Widget build(BuildContext context) {
-    final String previousTooltipText =
-        'ماه قبل ${utils.addMonthsToMonthDate(_currentMonthYear!, -1).formatMonthYear()}';
-    final String nextTooltipText =
-        'ماه بعد ${utils.addMonthsToMonthDate(_currentMonthYear!, 1).formatMonthYear}';
     final Color controlColor =
         Theme.of(context).colorScheme.onSurface.withOpacity(0.60);
 
@@ -407,7 +403,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                     size: 18,
                   ),
                   color: controlColor,
-                  tooltip: _isDisplayingFirstYear ? null : previousTooltipText,
+                  tooltip: _isDisplayingFirstYear ? null : "سال  قبل",
                   onPressed:
                       _isDisplayingFirstYear ? null : _handlePreviousYear,
                 ),
@@ -417,7 +413,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                     size: 18,
                   ),
                   color: controlColor,
-                  tooltip: _isDisplayingFirstMonth ? null : previousTooltipText,
+                  tooltip: _isDisplayingFirstMonth ? null : "ماه قبل",
                   onPressed:
                       _isDisplayingFirstMonth ? null : _handlePreviousMonth,
                 ),
@@ -426,7 +422,8 @@ class _MonthPickerState extends State<_MonthPicker> {
                   child: Text(
                     (_currentMonthYear?.formatter.mN.toString() ?? "") +
                         "  " +
-                        (_currentMonthYear?.formatter.y.toString() ?? ""),
+                        (_currentMonthYear?.formatter.y.toString() ?? "").e2p,
+                    style: TextStyle(fontSize: 15),
                   ),
                 ),
                 IconButton(
@@ -435,7 +432,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                     size: 18,
                   ),
                   color: controlColor,
-                  tooltip: _isDisplayingLastMonth ? null : nextTooltipText,
+                  tooltip: _isDisplayingLastMonth ? null : "ماه بعد",
                   onPressed: _isDisplayingLastMonth ? null : _handleNextMonth,
                 ),
                 IconButton(
@@ -448,7 +445,7 @@ class _MonthPickerState extends State<_MonthPicker> {
                     ],
                   ),
                   color: controlColor,
-                  tooltip: _isDisplayingLastYear ? null : nextTooltipText,
+                  tooltip: _isDisplayingLastYear ? null : "سال بعد",
                   onPressed: _isDisplayingLastYear ? null : _handleNextYear,
                 ),
               ],
@@ -522,7 +519,7 @@ class _DayPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final TextStyle? dayStyle = textTheme.caption;
+    final TextStyle? dayStyle = textTheme.caption?.copyWith(fontSize: 15);
     final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
     final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
     final Color selectedDayColor = colorScheme.onPrimary;
@@ -577,7 +574,7 @@ class _DayPicker extends StatelessWidget {
           child: Container(
             decoration: decoration,
             child: Center(
-              child: Text(formatDecimal(day),
+              child: Text(formatDecimal(day).e2p,
                   style: dayStyle!.apply(color: dayColor)),
             ),
           ),
