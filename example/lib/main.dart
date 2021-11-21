@@ -48,10 +48,13 @@ class _MyHomePageState extends State<MyHomePage> {
             DatePickerWidget(
               initialDate: Jalali.now(),
               firstDate: Jalali(1395, 8),
-              lastDate: Jalali(1410, 9),
+              lastDate: Jalali(1400, 8, 30),
               secondaryButtonText: "11111",
               primaryButtonText: "22222",
               showHeaderWidget: false,
+              onSelectedDateChanged: (Jalali? j, PageController controller) {
+                print(j);
+              },
               onPrimaryTap: (Jalali? j, PageController controller) {
                 print(j);
               },

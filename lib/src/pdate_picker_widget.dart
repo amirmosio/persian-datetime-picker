@@ -83,6 +83,7 @@ class DatePickerWidget extends StatefulWidget {
     this.initialEntryMode = DatePickerEntryMode.calendar,
     this.selectableDayPredicate,
     this.secondaryButtonText,
+    this.onSelectedDateChanged,
     this.onSecondaryTap,
     this.primaryButtonText,
     this.onPrimaryTap,
@@ -107,6 +108,9 @@ class DatePickerWidget extends StatefulWidget {
             selectableDayPredicate!(this.initialDate),
         'Provided initialDate ${this.initialDate} must satisfy provided selectableDayPredicate');
   }
+
+  /// selected date changed callback
+  final void Function(Jalali?, PageController)? onSelectedDateChanged;
 
   /// button tap handle
   final void Function(Jalali?, PageController)? onPrimaryTap;
@@ -167,17 +171,16 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   }
 
   void _handleOnPrimaryTap() {
-    if (widget.onPrimaryTap != null)
-      widget.onPrimaryTap!(_selectedDate, monthPageViewController);
+    widget.onPrimaryTap?.call(_selectedDate, monthPageViewController);
   }
 
   void _handleSecondaryTap() {
-    if (widget.onSecondaryTap != null)
-      widget.onSecondaryTap!(_selectedDate, monthPageViewController);
+    widget.onSecondaryTap?.call(_selectedDate, monthPageViewController);
   }
 
   void _handleDateChanged(Jalali? date) {
     setState(() => _selectedDate = date);
+    widget.onSelectedDateChanged?.call(_selectedDate, monthPageViewController);
   }
 
   @override
@@ -248,42 +251,47 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       onIconPressed: () {},
     );
 
-    return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            blurRadius: 5,
-            spreadRadius: 2,
-            offset: Offset(-1, 1),
-            color: Colors.grey)
-      ], color: Colors.white),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaleFactor: textScaleFactor,
-          ),
-          child: Builder(builder: (BuildContext context) {
-            return Row(
-              mainAxisSize: MainAxisSize.min,
-              children: (widget.showHeaderWidget ? [header] : <Widget>[]) +
-                  <Widget>[
-                    IntrinsicWidth(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          picker,
-                          Divider(
-                            thickness: 1,
-                            height: 1,
-                          ),
-                          actions
-                        ],
+    return GestureDetector(
+      onTap: () {
+        // override, do nothing
+      },
+      child: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              blurRadius: 5,
+              spreadRadius: 2,
+              offset: Offset(-1, 1),
+              color: Colors.grey)
+        ], color: Colors.white),
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: textScaleFactor,
+            ),
+            child: Builder(builder: (BuildContext context) {
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: (widget.showHeaderWidget ? [header] : <Widget>[]) +
+                    <Widget>[
+                      IntrinsicWidth(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            picker,
+                            Divider(
+                              thickness: 1,
+                              height: 1,
+                            ),
+                            actions
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-            );
-          }),
+                    ],
+              );
+            }),
+          ),
         ),
       ),
     );
