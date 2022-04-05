@@ -21,12 +21,12 @@ class MyFlutterApp {
   static const _kFontFam = 'MyIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData Double_Chevron_Right =
-      IconData(0xeba4, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData Double_Chevron_Left =
-      IconData(0xeba5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData Chevron_Right =
-      IconData(0xeba6, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData Chevron_Left =
-      IconData(0xeba7, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+      IconData(0xe905, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData Chevron_Right =
+      IconData(0xe906, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData Double_Chevron_Left =
+      IconData(0xe90a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData Double_Chevron_Right =
+      IconData(0xe90b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
