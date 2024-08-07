@@ -111,9 +111,8 @@ Future<JalaliRange?> showPersianDateRangePicker({
   TextDirection? textDirection,
   TransitionBuilder? builder,
 }) async {
-  assert(context != null);
   assert(
-    initialDateRange == null || (initialDateRange.start != null && initialDateRange.end != null),
+    initialDateRange == null || (initialDateRange.end != null),
     'initialDateRange must be null or have non-null start and end dates.',
   );
   assert(
@@ -121,9 +120,7 @@ Future<JalaliRange?> showPersianDateRangePicker({
     "initialDateRange's start date must not be after it's end date.",
   );
   initialDateRange = initialDateRange == null ? null : utils.datesOnly(initialDateRange);
-  assert(firstDate != null);
   firstDate = utils.dateOnly(firstDate);
-  assert(lastDate != null);
   lastDate = utils.dateOnly(lastDate);
   assert(
     !lastDate.isBefore(firstDate),
@@ -146,8 +143,6 @@ Future<JalaliRange?> showPersianDateRangePicker({
     "initialDateRange's end date must be on or before lastDate $lastDate.",
   );
   currentDate = utils.dateOnly(currentDate ?? Jalali.now());
-  assert(initialEntryMode != null);
-  assert(useRootNavigator != null);
 
   Widget dialog = _DateRangePickerDialog(
     initialDateRange: initialDateRange,
@@ -416,7 +411,7 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
         curve: Curves.easeIn,
         child: MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaleFactor: textScaleFactor,
+            textScaler: TextScaler.linear(textScaleFactor),
           ),
           child: Builder(builder: (BuildContext context) {
             return Directionality(
@@ -478,7 +473,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
         localizations, selectedStartDate, selectedEndDate);
     final String endDateText = utils.formatRangeEndDate(
         localizations, selectedStartDate, selectedEndDate, Jalali.now());
-    final TextStyle? headlineStyle = textTheme.headline6;
+    final TextStyle? headlineStyle = textTheme.titleLarge;
     final TextStyle? startDateStyle = headlineStyle?.apply(
         color: selectedStartDate != null
             ? headerForeground
@@ -487,7 +482,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
         color: selectedEndDate != null
             ? headerForeground
             : headerDisabledForeground);
-    final TextStyle saveButtonStyle = textTheme.button!.apply(
+    final TextStyle saveButtonStyle = textTheme.labelLarge!.apply(
         color: onConfirm != null ? headerForeground : headerDisabledForeground);
 
     final IconButton entryModeIcon = IconButton(
@@ -532,7 +527,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         helpText,
-                        style: textTheme.overline!.apply(
+                        style: textTheme.labelSmall!.apply(
                           color: headerForeground,
                         ),
                       ),
@@ -641,8 +636,8 @@ class _PInputDateRangePickerDialog extends StatelessWidget {
         ? colorScheme.onPrimary
         : colorScheme.onSurface;
     final TextStyle? dateStyle = orientation == Orientation.landscape
-        ? textTheme.subtitle1?.apply(color: dateColor)
-        : textTheme.headline5?.apply(color: dateColor);
+        ? textTheme.titleMedium?.apply(color: dateColor)
+        : textTheme.headlineSmall?.apply(color: dateColor);
     final String dateText = _formatDateRange(
         context, selectedStartDate, selectedEndDate, currentDate);
     final String semanticDateText = selectedStartDate != null &&

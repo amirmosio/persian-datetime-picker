@@ -365,7 +365,7 @@ class _DatePickerModeToggleButtonState extends State<_DatePickerModeToggleButton
                           child: Text(
                             widget.title,
                             overflow: TextOverflow.ellipsis,
-                            style: textTheme.subtitle2?.copyWith(
+                            style: textTheme.titleSmall?.copyWith(
                               color: controlColor,
                             ),
                           ),
@@ -483,7 +483,7 @@ class _MonthPickerState extends State<_MonthPicker> {
 
   @override
   void dispose() {
-    _pageController?.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -509,7 +509,7 @@ class _MonthPickerState extends State<_MonthPicker> {
         formatMonthYear(_nextMonthDate),
         _textDirection,
       );
-      _pageController?.nextPage(
+      _pageController.nextPage(
         duration: _monthScrollDuration,
         curve: Curves.ease,
       );
@@ -522,7 +522,7 @@ class _MonthPickerState extends State<_MonthPicker> {
         formatMonthYear(_previousMonthDate),
         _textDirection,
       );
-      _pageController?.previousPage(
+      _pageController.previousPage(
         duration: _monthScrollDuration,
         curve: Curves.ease,
       );
@@ -687,7 +687,7 @@ class _DayPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final TextStyle? dayStyle = textTheme.caption;
+    final TextStyle? dayStyle = textTheme.bodySmall;
     final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
     final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
     final Color selectedDayColor = colorScheme.onPrimary;
@@ -848,7 +848,7 @@ class _DayHeaders extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final TextStyle? dayHeaderStyle = theme.textTheme.caption?.apply(
+    final TextStyle? dayHeaderStyle = theme.textTheme.bodySmall?.apply(
       color: colorScheme.onSurface.withOpacity(0.60),
     );
     final MaterialLocalizations localizations = MaterialLocalizations.of(context);
@@ -955,7 +955,7 @@ class _YearPickerState extends State<_YearPicker> {
     } else {
       textColor = colorScheme.onSurface.withOpacity(0.87);
     }
-    final TextStyle? itemStyle = textTheme.bodyText1?.apply(color: textColor);
+    final TextStyle? itemStyle = textTheme.bodyLarge?.apply(color: textColor);
 
     BoxDecoration? decoration;
     if (isSelected) {

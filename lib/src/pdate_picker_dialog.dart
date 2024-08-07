@@ -445,7 +445,7 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
           curve: Curves.easeIn,
           child: MediaQuery(
             data: MediaQuery.of(context).copyWith(
-              textScaleFactor: textScaleFactor,
+              textScaler: TextScaler.linear(textScaleFactor),
             ),
             child: Builder(builder: (BuildContext context) {
               switch (orientation) {
