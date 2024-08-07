@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+
+final ThemeData androidTheme = new ThemeData(
+  fontFamily: 'SG-Main',
+);
 
 void main() => runApp(new MyApp());
 
@@ -11,13 +13,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Flutter Demo',
-      home: new MyHomePage(title: 'دیت تایم پیکر فارسی'),
+      theme: androidTheme,
+      home: new MyHomePage(key: super.key, title: 'دیت تایم پیکر فارسی'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = ""}) : super(key: key);
+  MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -26,7 +29,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String? label;
+  String label = '';
 
   String selectedDate = Jalali.now().toJalaliDateTime();
 
@@ -42,29 +45,40 @@ class _MyHomePageState extends State<MyHomePage> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Row(
+        body: Wrap(
           children: [
-            Icon(Icons.calendar_today),
-            DatePickerWidget(
-              initialDate: Jalali.now(),
-              firstDate: Jalali(1395, 8),
-              lastDate: Jalali(1445, 8, 30),
-              secondaryButtonText: "11111",
-              primaryButtonText: "22222",
-              showHeaderWidget: false,
-              onSelectedDateChanged: (Jalali? j, PageController controller) {
-                print(j);
-              },
-              onPrimaryTap: (Jalali? j, PageController controller) {
-                print(j);
-              },
-              onSecondaryTap: (Jalali? j, PageController controller) {
-                int page = (Jalali.now().year - Jalali(1395, 8).year) * 12 +
-                    Jalali.now().month -
-                    Jalali(1395, 8).month;
-                controller.jumpToPage(page);
-              },
-            ),
+            TextButton(
+                onPressed: () async {
+                  await showPersianDatePicker(
+                    context: context,
+                    initialDate: Jalali.now(),
+                    firstDate: Jalali(1385, 8),
+                    lastDate: Jalali(1450, 9),
+                  );
+                },
+                child: Text("Date Picker")),
+            Container(
+              width: 333,
+              color: Colors.greenAccent,
+              child: PCalendarDatePicker(
+                initialDate: Jalali.now(),
+                firstDate: Jalali(1385, 8),
+                lastDate: Jalali(1450, 9),
+                primaryButtonText: "apply",
+                secondaryButtonText: "go to now",
+                onPrimaryTap: (p1) {},
+                onSecondaryTap: (p1) {
+                  int page = (Jalali.now().year - Jalali(1385, 8).year) * 12 +
+                      Jalali.now().month -
+                      Jalali(1385, 8).month;
+                  p1.jumpToPage(page);
+                },
+                initialCalendarMode: PDatePickerMode.day,
+                onDateChanged: (value) {
+                  print(value);
+                },
+              ),
+            )
           ],
         ),
       ),

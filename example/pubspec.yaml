@@ -5,21 +5,32 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.3
   persian_datetime_picker:
-    path : ../
- 
+    path: ../
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
-#  fonts:
-#    - family: Icons
-#      fonts:
-#        - asset: assets/fonts/Icons.ttf
+  uses-material-design: true
+  
+
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: SG-Main
+      fonts:
+        - asset: assets/fonts/sg_kara_light.ttf
+          weight: 300
+        - asset: assets/fonts/sg_kara_regular.ttf
+        - asset: assets/fonts/sg_kara_semi_bold.ttf
+          weight: 600

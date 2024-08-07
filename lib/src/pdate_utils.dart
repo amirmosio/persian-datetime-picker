@@ -16,9 +16,7 @@ JalaliRange datesOnly(JalaliRange range) {
 /// Returns true if the two [Jalali] objects have the same day, month, and
 /// year.
 bool isSameDay(Jalali? dateA, Jalali? dateB) {
-  return dateA?.year == dateB?.year &&
-      dateA?.month == dateB?.month &&
-      dateA?.day == dateB?.day;
+  return dateA?.year == dateB?.year && dateA?.month == dateB?.month && dateA?.day == dateB?.day;
 }
 
 /// Returns true if the two [Jalali] objects have the same month, and
@@ -105,41 +103,28 @@ int getDaysInMonth(int year, int month) {
     if (isLeapYear) return 30;
     return 29;
   }
-  const List<int> daysInMonth = <int>[
-    31,
-    31,
-    31,
-    31,
-    31,
-    31,
-    30,
-    30,
-    30,
-    30,
-    30,
-    -1
-  ];
+  const List<int> daysInMonth = <int>[31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, -1];
   return daysInMonth[month - 1];
 }
 
 List<String> narrowWeekdays = [
-  "ش",
-  "ی",
-  "د",
-  "س",
-  "چ",
-  "پ",
-  "ج",
+  'ش',
+  'ی',
+  'د',
+  'س',
+  'چ',
+  'پ',
+  'ج',
 ];
 
 List<String> shortDayName = [
-  "شنبه",
-  "۱شنبه",
-  "۲شنبه",
-  "۳شنبه",
-  "۴شنبه",
-  "۵شنبه",
-  "جمعه",
+  'شنبه',
+  '۱شنبه',
+  '۲شنبه',
+  '۳شنبه',
+  '۴شنبه',
+  '۵شنبه',
+  'جمعه',
 ];
 
 /// Returns a locale-appropriate string to describe the start of a date range.
@@ -151,7 +136,7 @@ List<String> shortDayName = [
 String formatRangeStartDate(
     MaterialLocalizations localizations, Jalali? startDate, Jalali? endDate) {
   return startDate == null
-      ? "تاریخ شروع"
+      ? 'تاریخ شروع'
       : (endDate == null || startDate.year == endDate.year)
           ? startDate.formatShortMonthDay()
           : startDate.formatShortDate();
@@ -163,13 +148,11 @@ String formatRangeStartDate(
 /// is in the same year as the `startDate` and the `currentDate` then it will
 /// just use the short month day format (i.e. 'Jan 21'), otherwise it will
 /// include the year (i.e. 'Jan 21, 2020').
-String formatRangeEndDate(MaterialLocalizations localizations,
-    Jalali? startDate, Jalali? endDate, Jalali? currentDate) {
+String formatRangeEndDate(
+    MaterialLocalizations localizations, Jalali? startDate, Jalali? endDate, Jalali? currentDate) {
   return endDate == null
-      ? "تاریخ پایان"
-      : (startDate != null &&
-              startDate.year == endDate.year &&
-              startDate.year == currentDate!.year)
+      ? 'تاریخ پایان'
+      : (startDate != null && startDate.year == endDate.year && startDate.year == currentDate!.year)
           ? endDate.formatShortMonthDay()
           : endDate.formatShortDate();
 }
@@ -188,11 +171,11 @@ String formatDecimal(int number) {
 }
 
 String formatYear(Jalali date) {
-  return '${date.formatter.yy}';
+  return date.formatter.yy;
 }
 
 String formatMonthYear(Jalali date) {
-  return '${date.formatter.mm} ${date.formatter.yy}';
+  return '${date.formatter.mm}   ${date.formatter.yyyy}';
 }
 
 String formatFullDate(Jalali date) {
@@ -204,7 +187,7 @@ String formatMediumDate(Jalali date) {
 }
 
 Jalali parseCompactDate(String inputString) {
-  List<int> split = inputString.split("/").map((e) => int.parse(e)).toList();
+  List<int> split = inputString.split('/').map((e) => int.parse(e)).toList();
   return Jalali(split[0], split[1], split[2]);
 }
 
@@ -263,65 +246,73 @@ extension JalaliExt on Jalali {
     return other.compareTo(this) == 0;
   }
 
-  DateTime toDateTime() {
-    return this.toDateTime();
-  }
-
   String _twoDigits(int n) {
-    if (n >= 10) return "${n}";
-    return "0${n}";
+    if (n >= 10) return '$n';
+    return '0$n';
   }
 
   ///formats
   String datePickerMediumDate() {
-    return '${shortDayName[this.weekDay - DateTime.monday]} '
-        '${this.formatter.mN} '
-        '${this.day.toString().padRight(2)}';
+    return '${shortDayName[weekDay - DateTime.monday]} '
+        '${formatter.mN} '
+        '${day.toString().padRight(2)}';
   }
 
   String formatMediumDate() {
-    final f = this.formatter;
-    return '${shortDayName[this.weekDay - 1]} ${f.d} ${f.mN}';
+    final f = formatter;
+    return '${shortDayName[weekDay - 1]} ${f.d} ${f.mN}';
   }
 
   String formatFullDate() {
-    final f = this.formatter;
+    final f = formatter;
     return '${f.wN} ${f.d} ${f.mN} ${f.yyyy}';
   }
 
   String toJalaliDateTime() {
-    final f = this.formatter;
-    return '${f.yyyy}-${f.mm}-${f.dd} ${_twoDigits(this.hour)}:${_twoDigits(this.minute)}:${_twoDigits(this.second)}';
+    final f = formatter;
+    return '${f.yyyy}-${f.mm}-${f.dd} ${_twoDigits(hour)}:${_twoDigits(minute)}:${_twoDigits(second)}';
   }
 
   String formatYear() {
-    final f = this.formatter;
-    return '${f.yyyy}';
+    final f = formatter;
+    return f.yyyy;
   }
 
   String formatCompactDate() {
-    final f = this.formatter;
+    final f = formatter;
     return '${f.yyyy}/${f.mm}/${f.dd}';
   }
 
   String formatShortDate() {
-    final f = this.formatter;
+    final f = formatter;
     return '${f.dd} ${f.mN}  ,${f.yyyy}';
   }
 
   String formatMonthYear() {
-    final f = this.formatter;
+    final f = formatter;
     return '${f.yyyy}/${f.mm}';
   }
 
   String formatShortMonthDay() {
-    final f = this.formatter;
+    final f = formatter;
     return '${f.dd} ${f.mN}';
   }
 }
 
 extension DateTimeExt on DateTime {
   Jalali toJalali() {
-    return this.toJalali();
+    return Jalali.fromDateTime(this);
+  }
+}
+
+extension PersianDigit on String {
+  String get e2p {
+    List<String> p = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    String res = this;
+    for (int i = 0; i <= 9; i++) {
+      res = res.replaceAll(i.toString(), p[i]);
+    }
+
+    return res;
   }
 }
